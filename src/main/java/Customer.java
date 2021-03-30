@@ -1,5 +1,6 @@
 import behaviours.ICar;
 import vehicles.Car;
+import vehicles.ElectricCar;
 
 import java.util.ArrayList;
 
@@ -28,5 +29,19 @@ public class Customer {
 
     public void addVehicle(ICar car){
         this.ownedVehicles.add(car);
+    }
+
+    public double buyCar(Car car) {
+        double cash = 0;
+        if (this.canBuyCar(car)){
+            this.wallet -= car.getPrice();
+            this.ownedVehicles.add(car);
+            cash = car.getPrice();
+        }
+        return cash;
+    }
+
+    public boolean canBuyCar(Car car){
+        return this.wallet >= car.getPrice();
     }
 }

@@ -6,6 +6,8 @@ import behaviours.ITyres;
 import components.TyreType;
 import components.Tyres;
 
+import java.util.ArrayList;
+
 public abstract class Car implements ICar {
     private String make;
     private String model;
@@ -13,6 +15,7 @@ public abstract class Car implements ICar {
     private FuelType fuel;
     private IEngine engine;
     private ITyres tyres;
+    private ArrayList<DamageType> damages;
 
     public Car(String make, String model, double price, FuelType fuel, IEngine engine, ITyres tyres){
         this.make = make;
@@ -21,6 +24,7 @@ public abstract class Car implements ICar {
         this.fuel = fuel;
         this.engine = engine;
         this.tyres = tyres;
+        this.damages = new ArrayList<>();
     }
 
     public String getMake() {
@@ -45,6 +49,32 @@ public abstract class Car implements ICar {
 
     public TyreType getTyreType() {
         return tyres.getTyreType();
+    }
+
+    public void addDamage(DamageType damageType){
+        this.damages.add(damageType);
+        this.reducePriceAsDamaged(damageType);
+    }
+
+    public int getDamages(){
+        return this.damages.size();
+    }
+
+    public void reducePriceAsDamaged(DamageType damageType){
+        this.price -= damageType.getDamageValue();
+    }
+
+    public double totalDamageCost(){
+        double counter = 0;
+        for (DamageType damage: this.damages){
+            counter += damage.getDamageValue();
+        }
+        return counter;
+    }
+
+    public void repair(){
+        this.price += this.totalDamageCost();
+        this.damages.clear();
     }
 
 }

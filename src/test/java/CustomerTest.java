@@ -8,6 +8,7 @@ import vehicles.FuelType;
 import vehicles.PetrolCar;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CustomerTest {
 
@@ -23,7 +24,7 @@ public class CustomerTest {
         engine = new Engine(8);
         tyres = new Tyres(TyreType.NORMAL);
         customer = new Customer("Mark", 10000);
-        eCar = new ElectricCar("BMW", "A1", 1000, FuelType.PETROL, engine, tyres, 500);
+        eCar = new ElectricCar("BMW", "A1", 1000, FuelType.ELECTRIC, engine, tyres, 500);
     }
 
     @Test
@@ -52,4 +53,10 @@ public class CustomerTest {
         customer.addVehicle(eCar);
         assertEquals(1, customer.getOwnedVehicles());
     }
+
+    @Test
+    public void customerCanBuyCar(){
+        assertTrue(customer.canBuyCar(car));
+    }
+
 }

@@ -5,6 +5,7 @@ import components.TyreType;
 import components.Tyres;
 import org.junit.Before;
 import org.junit.Test;
+import vehicles.DamageType;
 import vehicles.FuelType;
 import vehicles.PetrolCar;
 
@@ -52,5 +53,17 @@ public class PetrolCarTest {
     @Test
     public void hasTyreType(){
         assertEquals(TyreType.NORMAL, car.getTyreType());
+    }
+
+    @Test
+    public void hasDamage(){
+        car.addDamage(DamageType.MINOR);
+        assertEquals(1, car.getDamages());
+    }
+
+    @Test
+    public void damageAffectsPrice(){
+        car.addDamage(DamageType.MINOR);
+        assertEquals(900, car.getPrice(), 0.0);
     }
 }

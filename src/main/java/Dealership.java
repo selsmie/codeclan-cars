@@ -31,5 +31,24 @@ public class Dealership {
     public void addCars(ICar car){
         this.showCars.add(car);
     }
+
+    public void buyCar(Car car) {
+        if (this.till >= car.getPrice()){
+            this.till -= car.getPrice();
+            this.showCars.add(car);
+        }
+    }
+
+    public void sellCar(Car car, Customer customer) {
+        if (customer.canBuyCar(car)){
+            double cash = customer.buyCar(car);
+            this.till += cash;
+            this.showCars.remove(car);
+        }
+    }
+
+    public void repairCar(Car car) {
+        car.repair();
+    }
 }
 
